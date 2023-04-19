@@ -40,11 +40,108 @@
                 width: 100%;
                 height: 100%;
             }
+            #redirect-button {
+              position: absolute; /* Posicionamiento absoluto */
+              top: 30vh; /* Posiciona el botón en el 50% de la altura del viewport */
+              left: 70vw; /* Posiciona el botón en el 50% del ancho del viewport */
+              transform: translate(-50%, -50%); /* Centra el botón */
+              width: 15vw; /* El ancho del div es el 90% del ancho del viewport */
+              height: 5vh; /* La altura del div es el 90% de la altura del viewport */
+              background-color: rgba(255, 0 , 0, 0.5);
+
+            }
+
+            #text-container {
+              position: absolute; /* Posicionamiento absoluto */
+              top: 10vh; /* Posiciona el elemento en el 50% de la altura del viewport */
+              left: 00vw; /* Posiciona el elemento en el 50% del ancho del viewport */
+              color: white;
+              font-size: auto;
+              width: 20vw; /* El ancho del div es el 90% del ancho del viewport */
+              height: 50vh; /* La altura del div es el 90% de la altura del viewport */
+              background-color: rgba(0  , 0 , 150, 0.5);
+              padding: 10px;
+              border-radius: 20px;
+              font-size: 12px;
+              font-family: Arial, sans-serif;
+              z-index: 99; 
+              
+            }
+
+            #titles {
+              position: absolute; /* Posicionamiento absoluto */
+              top: 0vh; /* Posiciona el elemento en el 50% de la altura del viewport */
+              left: 20vw; /* Posiciona el elemento en el 50% del ancho del viewport */
+              color: white;
+              font-size: auto;
+              padding: 10px;
+              font-size: 30px;
+              font-family: Arial, sans-serif;
+              z-index: 99; 
+              overflow: hidden;
+              white-space: nowrap;
+              animation: typing 4s steps(30, end) forwards;
+            }
+
+            .links-style {
+                font-size: auto;
+            }
+            a {
+                color: white;
+            }
+            a:hover {
+                color: red;
+            }
+
+            .recuadro {
+              position: absolute; /* Posicionamiento absoluto */
+              top: 0vh; /* Posiciona el elemento en el 50% de la altura del viewport */
+              left: 20vw; /* Posiciona el elemento en el 50% del ancho del viewport */
+              width: 60vw; /* El ancho del div es el 90% del ancho del viewport */
+              height: 7vh; /* La altura del div es el 90% de la altura del viewport */
+              background-color: rgba(255, 0 , 0, 0.5);
+              border-radius: 10px;
+            }
+            @keyframes typing {
+                from {
+                  width: 0;
+                }
+                to {
+                  width: 100%;
+                }
+            }
+
+
         </style>
     </head>
 <body>
     <div id="canvasZone"><canvas id="renderCanvas"></canvas></div>
+    <button id="redirect-button">Go to Documentation</button>
+
+    <div class="recuadro"></div>
+
+    <div id="titles"></div>
+
+    <div id="text-container">
+          <h2>Babylon.js es una biblioteca de JavaScript de código abierto que se utiliza para crear gráficos y animaciones en 3D en el navegador web. Permite a los desarrolladores crear escenas 3D interactivas, objetos 3D, efectos visuales y mucho más, utilizando una API fácil de usar y potente.
+            Puedes encontrar más información en la página oficial de Babylon.js:
+        <p class="links-style"><a href='https://www.babylonjs.com/'>Babylon.js</a></p>
+    </div>
+
+
+
     <script>
+
+
+        
+
+
+        var redirectButton = document.getElementById("redirect-button");
+
+        redirectButton.onclick = function() {
+        window.location.href = "https://doc.babylonjs.com/";
+        }
+
         var canvas = document.getElementById("renderCanvas");
 
         var startRenderLoop = function (engine, canvas) {
@@ -63,11 +160,11 @@
     const scene = new BABYLON.Scene(engine);
 
     /**** Set camera and light *****/
-    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 30, new BABYLON.Vector3(0, 0, 0));
+    const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 20, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
 
-    const box = BABYLON.MeshBuilder.CreateBox("box", {width: 2, height: 1.5, depth: 3});
+    const box = BABYLON.MeshBuilder.CreateBox("box", {width: 2, height: 1, depth: 3});
     const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:15, height:15});
     
     let groundMaterial = new BABYLON.StandardMaterial("Ground Material", scene);
@@ -75,10 +172,10 @@
     let box2Material = new BABYLON.StandardMaterial("Box2 Material", scene);
 
     const box2 = BABYLON.MeshBuilder.CreateBox("box2", {}); //unit cube
-    box2.position = new BABYLON.Vector3(5, 0.5, 0);
+    box2.position = new BABYLON.Vector3(5, 3, 0);
 
     box2.scaling.x = 2;
-    box2.scaling.y = 1.8;
+    box2.scaling.y = 6;
     box2.scaling.z = 3;
 
     //box.scaling = new BABYLON.Vector3(2, 1.5, 3);
@@ -101,9 +198,11 @@
     });
 
     
-    
     return scene;
 }
+        const titles = document.getElementById('titles');
+        titles.innerHTML = 'Bienvenido a mi primera escena hecha con Babylon.js';
+
                 window.initFunction = async function() {
                     
                     
